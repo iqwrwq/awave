@@ -1,0 +1,37 @@
+<div class="col-2">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="position: fixed;height: 100%">
+        <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <img src=".awave/assets/images/logo/logo.png" alt="" width="55" height="55">
+            <span class="fs-4">.awave</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+                <form>
+                    <input id="searchbar" onkeyup="search_animal()" class="form-control" type="search"
+                           placeholder="Search"
+                           aria-label="Search">
+                </form>
+            </li>
+            <li class="btn btn-primary mt-3">
+                <a href="#" class="nav-link text-white">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <span>Create new Project</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="." class="nav-link text-white" aria-current="page">
+                    <i class="fas fa-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    <i class="fas fa-store"></i>
+                    <span>Marketplace</span>
+                </a>
+            </li>
+        </ul>
+        {% include 'components/navbar/dropdown.html.twig' %}
+    </div>
+</div>

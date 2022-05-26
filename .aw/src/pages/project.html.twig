@@ -1,0 +1,66 @@
+{% from _self import recursiveTreeLister %}
+{% set page_name = name %}
+{% set dir_data = dir_data %}
+{% include 'components/header.html.twig' with {theme, page_name} %}
+
+<div class="row">
+    {% include 'components/navbar/nav.html.twig' %}
+    <div class="col-10">
+        <div class="container">
+            <div class="tree">
+                <ul>
+                    <li class="tree-header"><i class="fa fa-folder-open"></i>
+                        <div>{{ name }}</div>
+                        <a onclick="toggleTreeContent()" id="tree-toggle" class="fas fa-caret-square-up fa-2x"></a>
+                        <span class="badge bg-primary text-light"><i class="fas fa-file"></i> {{ dir_data.total_files }}</span>
+                        <span class="badge bg-secondary text-light"><i class="fas fa-hdd"></i></i> {{ dir_data.total_size }} Byte</span>
+                    </li>
+                    <ul id="tree-content">
+                        {% for key,file in content %}
+                            {% if file is iterable %}
+                                {{ recursiveTreeLister(key, file) }}
+                            {% else %}
+                                <li><i class="far fa-file"></i><a href="{{ name }}/{{ file }}"> {{ file }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'components/footer.html.twig' %}
+
+{% macro recursiveTreeLister(filename, files) %}
+    {% import _self as self %}
+    {% set dir_count = dir_count + 1 %}
+    <li><i class="fa fa-folder"></i><a href="{{ name }}/{{ file }}"> {{ filename }}</a></li>
+    <ul>
+        {% for key,file in files %}
+            {% if file is iterable %}
+                {{ self.recursiveTreeLister(key,file) }}
+            {% else %}
+                <li><i class="far fa-file"></i><a href=""> {{ file }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+<script type="text/javascript">
+    let tree_content = document.getElementById("tree-content");
+    let tree_toggle = document.getElementById("tree-toggle");
+    //tree_content.style.display = "none";
+
+    function toggleTreeContent() {
+        if (tree_content.style.display === "none") {
+            tree_content.style.display = "block";
+            tree_toggle.classList.replace("fa-caret-square-up", "fa-caret-square-down");
+        } else {
+            tree_content.style.display = "none";
+            tree_toggle.classList.replace("fa-caret-square-down", "fa-caret-square-up");
+        }
+    }
+</script>
+
