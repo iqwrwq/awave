@@ -17,7 +17,7 @@ class PageController
 
     public function __construct()
     {
-        $this->loader = new FilesystemLoader('.awave/src/pages', getcwd());
+        $this->loader = new FilesystemLoader('.aw/src/pages', getcwd());
         $this->twig = new Environment($this->loader);
         $this->directoryReader = new DirectoryReader(__DIR__);
         $this->config = new Config();

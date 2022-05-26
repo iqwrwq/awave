@@ -6,6 +6,9 @@
             "awave\\": "controller/"
         }
     },
+    "config": {
+        "platform-check": false
+    },
     "authors": [
         {
             "name": "iqwrwq"

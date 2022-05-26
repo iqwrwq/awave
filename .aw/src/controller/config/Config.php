@@ -12,7 +12,7 @@ class Config
     public function __construct()
     {
         $this->dotEnv = new Dotenv();
-        $this->dotEnv->load( getcwd() . '/.awave/src/.env');
+        $this->dotEnv->load( getcwd() . '/.aw/src/.env');
         $this->theme = $_ENV['THEME'];
     }
 
