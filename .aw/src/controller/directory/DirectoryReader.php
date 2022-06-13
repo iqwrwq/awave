@@ -85,8 +85,13 @@ class DirectoryReader
         $bytestotal = 0;
         $nbfiles = 0;
         $files[] = "";
+        $isGitRepo = false;
+        $repoName = '';
         foreach (new RecursiveIteratorIterator($ite) as $filename => $cur) {
             $sections = explode(DIRECTORY_SEPARATOR, $cur);
+            if (in_array('.git', $sections)){
+                $isGitRepo = true;
+            }
             if (!in_array('.idea', $sections) && !in_array('.git', $sections)) {
                 $filesize = $cur->getSize();
                 $bytestotal += $filesize;
@@ -94,17 +99,19 @@ class DirectoryReader
                 $nbfiles++;
             }
         }
-        $bytestotal = number_format($bytestotal);
-        return array('total_files' => $nbfiles, 'total_size' => $bytestotal,'files' => $files);
+        if ($bytestotal / 1100000000 >= 1){
+            $bytestotal = number_format(($bytestotal/1100000000));
+            $unit = 'gb';
+        }elseif ($bytestotal / 1000 >= 1){
+            $bytestotal = number_format(($bytestotal/1000));
+            $unit = 'mb';
+        }else{
+            $bytestotal = number_format($bytestotal);
+            $unit = 'bytes';
+        }
+
+
+        return array('total_files' => $nbfiles, 'total_size' => $bytestotal, 'unit' => $unit,'files' => $files, 'isGitRepo' => $isGitRepo);
     }
-
-//    public function getDirCount($path): int
-//    {
-//        echo "<pre>";
-//        print_r(glob($path . "/*", GLOB_ONLYDIR));
-//        echo "</pre>";
-//        return count(glob($path . "/*", GLOB_ONLYDIR));
-//    }
-
 
 }
