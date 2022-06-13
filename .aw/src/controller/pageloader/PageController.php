@@ -37,20 +37,17 @@ class PageController
                         "name" => $_GET['project'],
                         "content" => $this->directoryReader->getProjectContent($_GET['project']),
                         "dir_data" => $this->directoryReader->getDirData($_GET['project']),
+                        "version" => "v0.1 AKAKO"
                     ]);
             } else {
                 echo $this->twig->render('404.html.twig');
             }
-        } elseif (isset($_GET['configure'])) {
-            echo $this->twig->render('index.html.twig',
-                [
-                    "projects" => $this->directoryReader->getAllProjectsFromRootDirectory(),
-                ]);
         } else {
             echo $this->twig->render('index.html.twig',
                 [
                     "navigation_root_snippet" => $this->getNavigationRootSnippet(),
                     "projects" => $this->directoryReader->getAllProjectsFromRootDirectory(),
+                    "version" => "v0.1 AKAKO"
                 ]);
         }
     }
