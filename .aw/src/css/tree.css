@@ -1,15 +1,16 @@
 .tree {
+    white-space: nowrap;
     position: relative;
     background-color: #fff;
     margin-top: 20px;
-    padding: 30px;
+    padding:15px;
     font-family: 'Roboto Mono', monospace;
     font-size: 0.85rem;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
-    max-height: 300px;
     overflow:scroll;
+    max-height: 70vh;
 }
 
 .tree-header{

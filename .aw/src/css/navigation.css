@@ -1,0 +1,100 @@
+.navigation-bar{
+    background-color: #1D3557;
+    width: 375px;
+    min-width: 200px;
+    min-height: 100vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    color: #fff;
+}
+
+.navigation-bar--header{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.navigation-bar--header:hover{
+    overflow: visible;
+}
+
+.root-directory-snippet{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #1D3557;
+}
+
+.root-directory-snippet>*{
+    padding: 0 .2rem;
+}
+
+.root-directory-snippet--text{
+    white-space: nowrap;
+}
+
+.searchbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.get-back-btn{
+    margin-left: 10px;
+    max-width: 330px;
+}
+
+.searchbar, .get-back-btn{
+    padding: 5px 10px;
+}
+
+.navigation-bar--content{
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.navigation-bar--content a{
+    color: #fff;
+}
+
+.navigation-bar--content>*{
+    padding: .2rem .6rem;
+}
+
+.navigation-bar--content>*:hover{
+    background-color: #457B9D;
+    cursor: pointer;
+}
+
+.project-folder-item + .selected{
+    background-color: #A8DADC;
+    color: #1D3557;
+}
+
+.project-folder-item .fa-folder, .project-folder-item .fa-folder{
+    color: #E63946;
+    margin-right: .3rem;
+}
+
+.ui-resizable-e{
+    width: 15px;
+    transition: background-color .5s;
+    transition-delay: .1s;
+}
+
+.ui-resizable-e:hover{
+    background-color: #A8DADC;
+}
+
+.highlight{
+    color: #E63946;
+}
