@@ -10,8 +10,8 @@ class Config
 
     public function __construct()
     {
-        $this->dotEnv = new Dotenv();
-        $this->dotEnv->load( getcwd() . '/.aw/src/.env');
+        //$this->dotEnv = new Dotenv();
+        //$this->dotEnv->load( getcwd() . '/.aw/src/.env');
     }
 }
 
