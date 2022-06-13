@@ -12,9 +12,17 @@ new Sortable(dropItem, {
 	chosenClass: 'sortable-chosen',
 	dragClass: 'sortable-drag'
 })
-
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <script>
+    $( function() {
+        $( "#resizable" ).resizable();
+    });
+    function selectProject(){
+
+    }
+
     function search_animal() {
         let input = document.getElementById('searchbar').value
         input=input.toLowerCase();
@@ -30,5 +38,3 @@ new Sortable(dropItem, {
         }
     }
 </script>
-</body>
-</html>

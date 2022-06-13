@@ -1,20 +1,13 @@
 {% set page_name = "dashboard" %}
 {% include 'components/header.html.twig' with {theme, page_name } %}
-<div class="row">
-    {% include 'components/navbar/nav.html.twig' %}
-    <div class="col-10">
-        <!-- content -->
-        <div class="container-fluid my-5">
-            <div id="drop-item" class="d-grid gap-3">
-                {{ searchbar_target_value }}
-                {{ searchbar_searchable }}
-                {% for project in projects %}
-                    {% include 'components/card.html.twig' with {project} %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
 
+{% block body %}
+    <body>
+    <div class="row">
+        {% include 'components/navbar/nav.html.twig' %}
+        {% include 'content.html.twig' %}
+    </div>
+    </body>
+{% endblock %}
 
 {% include 'components/footer.html.twig' %}

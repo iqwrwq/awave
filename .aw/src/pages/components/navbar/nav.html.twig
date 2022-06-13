@@ -1,37 +1,130 @@
-<div class="col-2">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="position: fixed;height: 100%">
-        <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <img src=".aw/assets/images/logo/logo.png" alt="" width="55" height="55">
-            <span class="fs-4">.awave</span>
-        </a>
+{% from _self import recursiveTreeLister %}
+{% set page_name = name %}
+{% set dir_data = dir_data %}
+
+{% block navbar %}
+    {% block navbarHeader %}
+        <div id="resizable" class="navigation-bar">
+        <div class="navigation-bar--header">
+            <div class="root-directory-snippet">
+                <div class="root-directory-snippet--text">~</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            {% for snippet in navigation_root_snippet %}
+                <div class="root-directory-snippet">
+                    <div class="root-directory-snippet--text">{{ snippet }}</div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            {% endfor %}
+            {% if name %}
+                <div class="root-directory-snippet">
+                    <div class="root-directory-snippet--text highlight">{{ name }}</div>
+                </div>
+            {% endif %}
+        </div>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li>
-                <form>
-                    <input id="searchbar" onkeyup="search_animal()" class="form-control" type="search"
-                           placeholder="Search"
-                           aria-label="Search">
+        {% block searchbar %}
+            <div class="navigation-bar--searchbar">
+                <form class="searchbar" action="">
+                    <fieldset class="field-container">
+                        <input type="text" placeholder="Search..." class="field"/>
+                        <div class="icons-container">
+                            <div class="icon-search"></div>
+                            <div class="icon-close">
+                                <div class="x-up"></div>
+                                <div class="x-down"></div>
+                            </div>
+                        </div>
+                    </fieldset>
                 </form>
-            </li>
-            <li class="btn btn-primary mt-3">
-                <a href="#" class="nav-link text-white">
-                    <i class="fas fa-hand-sparkles"></i>
-                    <span>Create new Project</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="." class="nav-link text-white" aria-current="page">
-                    <i class="fas fa-columns"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="fas fa-store"></i>
-                    <span>Marketplace</span>
-                </a>
-            </li>
-        </ul>
-        {% include 'components/navbar/dropdown.html.twig' %}
+            </div>
+            <hr>
+        {% endblock %}
+    {% endblock %}
+    {% block navbarContent %}
+        <div class="navigation-bar--content">
+            {% if name %}
+                <a href="." class="btn btn-dark get-back-btn"><i class="fas fa-backspace"></i> Go Back</a>
+
+                <div class="row">
+                    <div class="col">
+
+                        <div class="tree">
+                            <ul>
+                                <li class="tree-header"><i class="fa fa-folder-open"></i>
+                                    <a onclick="toggleTreeContent()" id="tree-toggle"
+                                       class="fa-solid fa-chevron-down"></a>
+                                    <div>{{ name }}</div>
+                                </li>
+                                <ul id="tree-content">
+                                    {% for key,file in content %}
+                                        {% if file is iterable %}
+                                            {{ recursiveTreeLister(key, file) }}
+                                        {% else %}
+                                            <li><i class="fas fa-file"></i><a
+                                                        href="{{ name }}/{{ file }}"> {{ file }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
+            {% block navigationContent %}
+                {% for project in projects %}
+                    <a href="?project={{ project.name }}" class="project-folder-item" onclick="selectProject()">
+                        {% if project is iterable %}
+                            <i class="fas fa-folder"></i>
+                        {% else %}
+                            <i class="fas fa-file"></i>
+                        {% endif %}
+                        <span>{{ project.name }}</span>
+                    </a>
+                {% endfor %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% block navbarFooter %}
+        <div class="navigation-bar--footer">
+            <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;">
+                <path d="M0.00,49.98 C150.00,150.00 349.20,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+                      style="stroke: none; fill: #457B9D;"></path>
+            </svg>
+            <div id="awave-version-tag">@awave {{ version }}</div>
+        </div>
+    {% endblock %}
     </div>
-</div>
+
+    {% macro recursiveTreeLister(filename, files) %}
+        {% import _self as self %}
+        {% set dir_count = dir_count + 1 %}
+        <li><i class="fa fa-folder"></i><a href="{{ name }}/{{ file }}"> {{ filename }}</a></li>
+        <ul>
+            {% for key,file in files %}
+                {% if file is iterable %}
+                    {{ self.recursiveTreeLister(key,file) }}
+                {% else %}
+                    <li><i class="fas fa-file"></i><a href=""> {{ file }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endmacro %}
+{% endblock %}
+
+<script type="text/javascript">
+    let tree_content = document.getElementById("tree-content");
+    let tree_toggle = document.getElementById("tree-toggle");
+
+    function toggleTreeContent() {
+        if (tree_content.style.display === "none") {
+            tree_content.style.display = "block";
+            tree_toggle.classList.replace("fa-chevron-right", "fa-chevron-down");
+        } else {
+            tree_content.style.display = "none";
+            tree_toggle.classList.replace("fa-chevron-down", "fa-chevron-right");
+        }
+    }
+</script>
