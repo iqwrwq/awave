@@ -30,7 +30,7 @@ class PageController
     public function index()
     {
         if (isset($_GET['project'])) {
-            if ($this->directoryReader->projectNameExistsInRootDirectory($_GET['project'])){
+            if ($this->directoryReader->projectNameExistsInRootDirectory($_GET['project'])) {
                 echo $this->twig->render('project.html.twig',
                     [
                         "navigation_root_snippet" => $this->getNavigationRootSnippet(),
@@ -38,15 +38,15 @@ class PageController
                         "content" => $this->directoryReader->getProjectContent($_GET['project']),
                         "dir_data" => $this->directoryReader->getDirData($_GET['project']),
                     ]);
-            }else{
+            } else {
                 echo $this->twig->render('404.html.twig');
             }
-        }elseif (isset($_GET['configure'])){
+        } elseif (isset($_GET['configure'])) {
             echo $this->twig->render('index.html.twig',
                 [
                     "projects" => $this->directoryReader->getAllProjectsFromRootDirectory(),
                 ]);
-        } else{
+        } else {
             echo $this->twig->render('index.html.twig',
                 [
                     "navigation_root_snippet" => $this->getNavigationRootSnippet(),
@@ -55,10 +55,12 @@ class PageController
         }
     }
 
-    private function getNavigationRootSnippet(){
+    private function getNavigationRootSnippet()
+    {
         $fullRootDirectoryPath = $_SERVER['DOCUMENT_ROOT'];
         $rootDirectorySnippets = explode('/', $fullRootDirectoryPath);
-        if (count($rootDirectorySnippets) > 2){
+
+        if (count($rootDirectorySnippets) > 2) {
             $sliced = array_slice($rootDirectorySnippets, -2, 2, true);
             array_unshift($sliced, '...');
             return $sliced;
