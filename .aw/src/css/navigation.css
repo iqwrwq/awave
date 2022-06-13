@@ -2,10 +2,12 @@
     background-color: #1D3557;
     width: 375px;
     min-width: 200px;
+    max-width: 100vw;
     min-height: 100vh;
     -ms-overflow-style: none;
     scrollbar-width: none;
     color: #fff;
+    box-shadow: 5px 10px 20px 1px rgba(0, 0, 0, 0.2);
 }
 
 .navigation-bar--header {
@@ -38,6 +40,7 @@
 
 .labels{
     padding: 0 1rem;
+    white-space: nowrap;
 }
 
 .searchbar {
@@ -92,14 +95,17 @@
 .navigation-bar--footer {
     position: absolute;
     bottom: 0;
+    left: 5px;
     width: 100%;
     height: 100px;
+    z-index: 999;
 }
 
 .ui-resizable-e {
     width: 15px;
     transition: background-color .5s;
     transition-delay: .1s;
+    background-color: #1D3557;
 }
 
 .ui-resizable-e:hover {
@@ -117,8 +123,8 @@
 #awave-version-tag {
     font-family: "Montserrat", "Helevtica", sans-serif;
     padding: 0 1rem;
-    color: #fff;
-    position: fixed;
+    color: #69b2e0;
+    position: absolute;
     bottom: 0;
     left: 0;
 }

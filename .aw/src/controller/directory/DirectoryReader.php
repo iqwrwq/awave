@@ -86,7 +86,6 @@ class DirectoryReader
         $nbfiles = 0;
         $files[] = "";
         $isGitRepo = false;
-        $repoName = '';
         foreach (new RecursiveIteratorIterator($ite) as $filename => $cur) {
             $sections = explode(DIRECTORY_SEPARATOR, $cur);
             if (in_array('.git', $sections)){

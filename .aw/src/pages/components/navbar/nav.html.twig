@@ -37,10 +37,18 @@
             <div class="navigation-bar--searchbar">
                 <form class="searchbar" action="">
                     <fieldset class="field-container">
-                        <input type="text" placeholder="Search..." class="field"/>
+                        {% if name %}
+                            <input id="searchbar"
+                                   onkeyup="searchForItemInProject()"
+                                   type="text" placeholder="Search..." class="field"/>
+                        {% else %}
+                            <input id="searchbar"
+                                   onkeyup="searchForProject()"
+                                   type="text" placeholder="Search..." class="field"/>
+                        {% endif %}
                         <div class="icons-container">
                             <div class="icon-search"></div>
-                            <div class="icon-close">
+                            <div id="reset-searchbar" class="icon-close">
                                 <div class="x-up"></div>
                                 <div class="x-down"></div>
                             </div>
@@ -71,7 +79,8 @@
                                         {% if file is iterable %}
                                             {{ recursiveTreeLister(key, file) }}
                                         {% else %}
-                                            <li><i class="fas fa-file"></i><a
+                                            <li class="folder-or-file"><i class="fas fa-file"></i><a
+                                                        class="folder-or-file--name"
                                                         href="{{ name }}/{{ file }}"> {{ file }}</a>
                                             </li>
                                         {% endif %}
@@ -82,19 +91,20 @@
 
                     </div>
                 </div>
+            {% else %}
+                {% block navigationContent %}
+                    {% for project in projects %}
+                        <a href="?project={{ project.name }}" class="project-folder-item" onclick="selectProject()">
+                            {% if project is iterable %}
+                                <i class="fas fa-folder"></i>
+                            {% else %}
+                                <i class="fas fa-file"></i>
+                            {% endif %}
+                            <span class="project-folder-item--name">{{ project.name }}</span>
+                        </a>
+                    {% endfor %}
+                {% endblock %}
             {% endif %}
-            {% block navigationContent %}
-                {% for project in projects %}
-                    <a href="?project={{ project.name }}" class="project-folder-item" onclick="selectProject()">
-                        {% if project is iterable %}
-                            <i class="fas fa-folder"></i>
-                        {% else %}
-                            <i class="fas fa-file"></i>
-                        {% endif %}
-                        <span>{{ project.name }}</span>
-                    </a>
-                {% endfor %}
-            {% endblock %}
         </div>
     {% endblock %}
     {% block navbarFooter %}
@@ -111,13 +121,15 @@
     {% macro recursiveTreeLister(filename, files) %}
         {% import _self as self %}
         {% set dir_count = dir_count + 1 %}
-        <li><i class="fa fa-folder"></i><a href="{{ name }}/{{ file }}"> {{ filename }}</a></li>
+        <li class="folder-or-file"><i class="fa fa-folder"></i><a class="folder-or-file--name"
+                                                                  href="{{ name }}/{{ file }}"> {{ filename }}</a></li>
         <ul>
             {% for key,file in files %}
                 {% if file is iterable %}
                     {{ self.recursiveTreeLister(key,file) }}
                 {% else %}
-                    <li><i class="fas fa-file"></i><a href=""> {{ file }}</a></li>
+                    <li class="folder-or-file"><i class="fas fa-file"></i><a class="folder-or-file--name"
+                                                                             href=""> {{ file }}</a></li>
                 {% endif %}
             {% endfor %}
         </ul>
@@ -135,6 +147,42 @@
         } else {
             tree_content.style.display = "none";
             tree_toggle.classList.replace("fa-chevron-down", "fa-chevron-right");
+        }
+    }
+
+    let resetSearchbarIcon = document.getElementById("reset-searchbar");
+    resetSearchbarIcon.addEventListener('click', () => {
+        let input = document.getElementById('searchbar')
+        input.value = ''
+        location.reload();
+    })
+
+    function searchForProject() {
+        let input = document.getElementById('searchbar').value
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName('project-folder-item');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].getElementsByClassName('project-folder-item--name')[0].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display = "none";
+            } else {
+                x[i].style.display = "block";
+            }
+        }
+    }
+
+    function searchForItemInProject() {
+        let input = document.getElementById('searchbar').value
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName('folder-or-file');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].getElementsByClassName('folder-or-file--name')[0].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display = "none";
+            } else {
+                x[i].style.display = "block";
+            }
+
         }
     }
 </script>
