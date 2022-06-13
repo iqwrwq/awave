@@ -2,26 +2,21 @@
 
 {% block body %}
     {% include 'components/navbar/nav.html.twig' %}
+    
+    {% include 'components/footer.html.twig' %}
 
+    <script type="text/javascript">
+        let tree_content = document.getElementById("tree-content");
+        let tree_toggle = document.getElementById("tree-toggle");
 
-
-
-{% include 'components/footer.html.twig' %}
-
-
-
-<script type="text/javascript">
-    let tree_content = document.getElementById("tree-content");
-    let tree_toggle = document.getElementById("tree-toggle");
-
-    function toggleTreeContent() {
-        if (tree_content.style.display === "none") {
-            tree_content.style.display = "block";
-            tree_toggle.classList.replace("fa-caret-square-up", "fa-caret-square-down");
-        } else {
-            tree_content.style.display = "none";
-            tree_toggle.classList.replace("fa-caret-square-down", "fa-caret-square-up");
+        function toggleTreeContent() {
+            if (tree_content.style.display === "none") {
+                tree_content.style.display = "block";
+                tree_toggle.classList.replace("fa-caret-square-up", "fa-caret-square-down");
+            } else {
+                tree_content.style.display = "none";
+                tree_toggle.classList.replace("fa-caret-square-down", "fa-caret-square-up");
+            }
         }
-    }
-</script>
+    </script>
 {% endblock %}
