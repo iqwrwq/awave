@@ -15,6 +15,7 @@
         }
     ],
     "require": {
+        "php" : ">=7.4",
         "psr/cache": "^3.0",
         "twig/twig": "^3.4",
         "symfony/dotenv": "^6.0"

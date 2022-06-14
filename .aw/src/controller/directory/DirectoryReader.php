@@ -2,6 +2,7 @@
 
 namespace awave\directory;
 
+use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -41,22 +42,8 @@ class DirectoryReader
     {
         return array(
             "name" => $pathToProject,
-            "labels" => $this->resolveLabels($pathToProject),
             "entry" => $this->resolveEntry($pathToProject)
         );
-    }
-
-    private function resolveLabels(string $pathToProject)
-    {
-        $labels = array();
-
-        if (is_dir($pathToProject . '/.peck')) {
-            $labels .= '.peck';
-        }
-        if (is_dir($pathToProject . '/.git')) {
-            array_push($labels, 'git-square');
-        }
-        return $labels;
     }
 
     private function resolveEntry(string $pathToProject)
@@ -79,38 +66,66 @@ class DirectoryReader
 
     public function getDirData($path): array
     {
-        $ite = new RecursiveDirectoryIterator($path);
-        $ite->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
-
-        $bytestotal = 0;
-        $nbfiles = 0;
-        $files[] = "";
+        $iterator = $this->getRecursiveDirectoryIterator($path);
         $isGitRepo = false;
-        foreach (new RecursiveIteratorIterator($ite) as $filename => $cur) {
-            $sections = explode(DIRECTORY_SEPARATOR, $cur);
-            if (in_array('.git', $sections)){
-                $isGitRepo = true;
-            }
-            if (!in_array('.idea', $sections) && !in_array('.git', $sections)) {
-                $filesize = $cur->getSize();
-                $bytestotal += $filesize;
-                $files[] = $filename;
-                $nbfiles++;
-            }
-        }
-        if ($bytestotal / 1100000000 >= 1){
-            $bytestotal = number_format(($bytestotal/1100000000));
+        $bytes = 0;
+        $unit = '';
+        $files[] = "";
+        $file_counter = 0;
+
+        list($files, $bytes, $file_counter, $isGitRepo) = $this->analyzeDirectoryData($iterator, $files, $bytes, $file_counter, $isGitRepo);
+        list($bytes, $unit) = $this->transformFileBits($bytes, $unit);
+
+        return array(
+            'total_files' => $file_counter,
+            'total_size' => $bytes,
+            'unit' => $unit,
+            'files' => $files,
+            'isGitRepo' => $isGitRepo
+        );
+    }
+
+    private function getRecursiveDirectoryIterator($path): RecursiveDirectoryIterator
+    {
+        $recursiveDirectoryIterator = new RecursiveDirectoryIterator($path);
+        $recursiveDirectoryIterator->setFlags(FilesystemIterator::SKIP_DOTS);
+
+        return $recursiveDirectoryIterator;
+    }
+
+    private function transformFileBits($bytes, $unit): array
+    {
+        if ($bytes / 1100000000 >= 1) {
+            $bytes = number_format(($bytes / 1100000000));
             $unit = 'gb';
-        }elseif ($bytestotal / 1000 >= 1){
-            $bytestotal = number_format(($bytestotal/1000));
+        } elseif ($bytes / 1000 >= 1) {
+            $bytes = number_format(($bytes / 1000));
             $unit = 'mb';
-        }else{
-            $bytestotal = number_format($bytestotal);
+        } else {
+            $bytes = number_format($bytes);
             $unit = 'bytes';
         }
+        return array($bytes, $unit);
+    }
 
+    private function analyzeDirectoryData(RecursiveDirectoryIterator $iterator, array $files, $bytes, int $file_counter, bool &$isGitRepo): array
+    {
+        foreach (new RecursiveIteratorIterator($iterator) as $filename => $cur) {
+            $sections = explode(DIRECTORY_SEPARATOR, $cur);
 
-        return array('total_files' => $nbfiles, 'total_size' => $bytestotal, 'unit' => $unit,'files' => $files, 'isGitRepo' => $isGitRepo);
+            if (in_array('vendor', $sections)) {
+                continue;
+            } elseif (!in_array('.git', $sections)) {
+                $files[] = $filename;
+                $filesize = $cur->getSize();
+                $bytes += $filesize;
+                $file_counter++;
+            } else {
+                $isGitRepo = true;
+            }
+
+        }
+        return array($files, $bytes, $file_counter, $isGitRepo);
     }
 
 }

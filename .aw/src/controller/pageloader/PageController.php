@@ -31,8 +31,9 @@ class PageController
     {
         if (isset($_GET['project'])) {
             if ($this->directoryReader->projectNameExistsInRootDirectory($_GET['project'])) {
-                echo $this->twig->render('project.html.twig',
+                echo $this->twig->render('index.html.twig',
                     [
+                        "isDashboard" => false,
                         "navigation_root_snippet" => $this->getNavigationRootSnippet(),
                         "name" => $_GET['project'],
                         "content" => $this->directoryReader->getProjectContent($_GET['project']),
@@ -45,6 +46,7 @@ class PageController
         } else {
             echo $this->twig->render('index.html.twig',
                 [
+                    "isDashboard" => true,
                     "navigation_root_snippet" => $this->getNavigationRootSnippet(),
                     "projects" => $this->directoryReader->getAllProjectsFromRootDirectory(),
                     "version" => "v0.1 AKAKO"
