@@ -1,5 +1,6 @@
 {
     "name": "de.iqwrwq.eique/awave",
+    "version": "0.0.1",
     "description": "awave is a project and file management tool for your hosted folder",
     "autoload": {
         "psr-4": {
