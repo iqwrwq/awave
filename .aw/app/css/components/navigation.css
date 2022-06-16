@@ -73,13 +73,19 @@
     color: #fff;
 }
 
-.navigation-bar--content > * {
-    padding: .2rem .6rem;
-}
-
 .navigation-bar--content > .project-folder-item:hover {
     background-color: #457B9D;
     cursor: pointer;
+}
+
+.project-folder-view{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 4rem;
+}
+
+.project-folder-view > * {
+    padding: .2rem 2rem;
 }
 
 .project-folder-item + .selected {

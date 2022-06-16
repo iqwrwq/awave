@@ -1,0 +1,59 @@
+{% from _self import recursiveTreeLister %}
+
+{% block tree %}
+    <div class="tree">
+        <ul>
+            <li class="tree-header"><i class="fa fa-folder-open"></i>
+                <a onclick="toggleTreeContent()" id="tree-toggle"
+                   class="fa-solid fa-chevron-down"></a>
+                <div>{{ name }}</div>
+            </li>
+            <ul id="tree-content">
+                {% for key,file in content %}
+                    {% if file is iterable %}
+                        {{ recursiveTreeLister(key, file) }}
+                    {% else %}
+                        <li class="folder-or-file"><i class="fas fa-file"></i><a
+                                    class="folder-or-file--name"
+                                    href="{{ name }}/{{ file }}"> {{ file }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </ul>
+    </div>
+{% endblock %}
+
+{% macro recursiveTreeLister(filename, files) %}
+    {% import _self as self %}
+    {% set dir_count = dir_count + 1 %}
+    <li class="folder-or-file"><i class="fa fa-folder"></i><a class="folder-or-file--name"
+                                                              href="{{ name }}/{{ file }}"> {{ filename }}</a></li>
+    <ul>
+        {% for key,file in files %}
+            {% if file is iterable %}
+                {{ self.recursiveTreeLister(key,file) }}
+            {% else %}
+                <li class="folder-or-file"><i class="fas fa-file"></i><a class="folder-or-file--name"
+                                                                         href=""> {{ file }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        let tree_content = document.getElementById("tree-content");
+        let tree_toggle = document.getElementById("tree-toggle");
+
+        function toggleTreeContent() {
+            if (tree_content.style.display === "none") {
+                tree_content.style.display = "block";
+                tree_toggle.classList.replace("fa-chevron-right", "fa-chevron-down");
+            } else {
+                tree_content.style.display = "none";
+                tree_toggle.classList.replace("fa-chevron-down", "fa-chevron-right");
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% block navbarHeader %}
+    <div id="resizable" class="navigation-bar">
+    <div class="navigation-bar--header">
+        <div class="root-directory-snippet">
+            <div class="root-directory-snippet--text">~</div>
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        {% for snippet in navigation_root_snippet %}
+            <div class="root-directory-snippet">
+                <div class="root-directory-snippet--text">{{ snippet }}</div>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        {% endfor %}
+        {% if name %}
+            <div class="root-directory-snippet">
+                <div class="root-directory-snippet--text highlight">{{ name }}</div>
+            </div>
+        {% endif %}
+    </div>
+    {% if name %}
+        <div class="labels">
+            <span class="badge bg-primary text-light"><i class="fas fa-file"></i> {{ dir_data.total_files }}</span>
+            <span class="badge bg-secondary text-light"><i
+                        class="fas fa-hdd"></i></i> {{ dir_data.total_size }} {{ dir_data.unit }}</span>
+            {% if dir_data.isGitRepo %}
+                <span class="badge bg-dark text-light"><i class="fa-xl fa-brands fa-github"></i></span>
+            {% endif %}
+        </div>
+    {% endif %}
+    <hr>
+    {% include 'components/navbar/header/nav.header.searchbar.html.twig' %}
+{% endblock %}

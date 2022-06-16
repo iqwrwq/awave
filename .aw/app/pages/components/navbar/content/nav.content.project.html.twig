@@ -1,0 +1,14 @@
+{% block navigationContent %}
+    <div class="project-folder-view">
+        {% for project in projects %}
+            <a href="?project={{ project.name }}" class="project-folder-item" onclick="selectProject()">
+                {% if project is iterable %}
+                    <i class="fas fa-folder"></i>
+                {% else %}
+                    <i class="fas fa-file"></i>
+                {% endif %}
+                <span class="project-folder-item--name">{{ project.name }}</span>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
