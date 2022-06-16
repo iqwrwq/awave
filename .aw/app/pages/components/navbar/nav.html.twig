@@ -63,10 +63,8 @@
         <div class="navigation-bar--content">
             {% if name %}
                 <a href="." class="btn btn-dark get-back-btn"><i class="fas fa-backspace"></i> Go Back</a>
-
                 <div class="row">
                     <div class="col">
-
                         <div class="tree">
                             <ul>
                                 <li class="tree-header"><i class="fa fa-folder-open"></i>
@@ -88,21 +86,20 @@
                                 </ul>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             {% else %}
                 {% block navigationContent %}
-                        {% for project in projects %}
-                            <a href="?project={{ project.name }}" class="project-folder-item" onclick="selectProject()">
-                                {% if project is iterable %}
-                                    <i class="fas fa-folder"></i>
-                                {% else %}
-                                    <i class="fas fa-file"></i>
-                                {% endif %}
-                                <span class="project-folder-item--name">{{ project.name }}</span>
-                            </a>
-                        {% endfor %}
+                    {% for project in projects %}
+                        <a href="?project={{ project.name }}" class="project-folder-item" onclick="selectProject()">
+                            {% if project is iterable %}
+                                <i class="fas fa-folder"></i>
+                            {% else %}
+                                <i class="fas fa-file"></i>
+                            {% endif %}
+                            <span class="project-folder-item--name">{{ project.name }}</span>
+                        </a>
+                    {% endfor %}
                 {% endblock %}
             {% endif %}
         </div>
@@ -117,7 +114,6 @@
         </div>
     {% endblock %}
     </div>
-
     {% macro recursiveTreeLister(filename, files) %}
         {% import _self as self %}
         {% set dir_count = dir_count + 1 %}

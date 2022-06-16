@@ -18,7 +18,7 @@ class PageController
 
     public function __construct()
     {
-        $this->loader = new FilesystemLoader('.aw/src/pages', getcwd());
+        $this->loader = new FilesystemLoader('.aw/app/pages', getcwd());
         $this->twig = new Environment($this->loader, [
             'debug' => true
         ]);

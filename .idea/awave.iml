@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/1NLL" />
+      <excludeFolder url="file://$MODULE_DIR$/2ART" />
+      <excludeFolder url="file://$MODULE_DIR$/3OIU" />
+      <excludeFolder url="file://$MODULE_DIR$/4AZY" />
+      <excludeFolder url="file://$MODULE_DIR$/5NOP" />
+      <excludeFolder url="file://$MODULE_DIR$/6LOL" />
+      <excludeFolder url="file://$MODULE_DIR$/7LML" />
+      <excludeFolder url="file://$MODULE_DIR$/8DHJ" />
+      <excludeFolder url="file://$MODULE_DIR$/9AFG" />
+      <excludeFolder url="file://$MODULE_DIR$/10ZAB" />
+      <excludeFolder url="file://$MODULE_DIR$/11VWY" />
+      <excludeFolder url="file://$MODULE_DIR$/12STU" />
+      <excludeFolder url="file://$MODULE_DIR$/13PQR" />
+      <excludeFolder url="file://$MODULE_DIR$/14MNO" />
+      <excludeFolder url="file://$MODULE_DIR$/15JKL" />
+      <excludeFolder url="file://$MODULE_DIR$/16GHI" />
+      <excludeFolder url="file://$MODULE_DIR$/17DEF" />
+      <excludeFolder url="file://$MODULE_DIR$/18ABC" />
+      <excludeFolder url="file://$MODULE_DIR$/19XYZ" />
+      <excludeFolder url="file://$MODULE_DIR$/20UVW" />
+      <excludeFolder url="file://$MODULE_DIR$/21RST" />
+      <excludeFolder url="file://$MODULE_DIR$/22OPQ" />
+      <excludeFolder url="file://$MODULE_DIR$/23LMN" />
+      <excludeFolder url="file://$MODULE_DIR$/24JKL" />
+      <excludeFolder url="file://$MODULE_DIR$/25GHI" />
+      <excludeFolder url="file://$MODULE_DIR$/26DEF" />
+      <excludeFolder url="file://$MODULE_DIR$/27ABC" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery-ui" level="application" />
