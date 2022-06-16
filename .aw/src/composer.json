@@ -1,5 +1,6 @@
 {
     "name": "de.iqwrwq.eique/awave",
+    "version": "0.0.1",
     "description": "awave is a project and file management tool for your hosted folder",
     "autoload": {
         "psr-4": {
@@ -15,6 +16,7 @@
         }
     ],
     "require": {
+        "php" : ">=7.4",
         "psr/cache": "^3.0",
         "twig/twig": "^3.4",
         "symfony/dotenv": "^6.0"
