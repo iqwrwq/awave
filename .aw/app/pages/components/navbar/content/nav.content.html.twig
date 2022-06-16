@@ -1,0 +1,11 @@
+{% block navbarContent %}
+    <div class="navigation-bar--content">
+        {% if name %}
+            <a href="javascript:history.back()" class="btn btn-dark get-back-btn"><i class="fas fa-backspace"></i> Go Back</a>
+            {% include 'components/navbar/content/nav.content.tree.html.twig' %}
+        {% else %}
+            {% include 'components/navbar/content/nav.content.project.html.twig' %}
+        {% endif %}
+    </div>
+{% endblock %}
+

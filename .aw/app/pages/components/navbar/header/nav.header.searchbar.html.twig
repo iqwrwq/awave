@@ -1,0 +1,65 @@
+{% block searchbar %}
+    <div class="navigation-bar--searchbar">
+        <form class="searchbar" action="">
+            <fieldset class="field-container">
+                {% if name %}
+                    <input id="searchbar"
+                           onkeyup="searchForItemInProject()"
+                           type="text" placeholder="Search..." class="field"/>
+                {% else %}
+                    <input id="searchbar"
+                           onkeyup="searchForProject()"
+                           type="text" placeholder="Search..." class="field"/>
+                {% endif %}
+                <div class="icons-container">
+                    <div class="icon-search"></div>
+                    <div id="reset-searchbar" class="icon-close">
+                        <div class="x-up"></div>
+                        <div class="x-down"></div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <hr>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        let resetSearchbarIcon = document.getElementById("reset-searchbar");
+        resetSearchbarIcon.addEventListener('click', () => {
+            let input = document.getElementById('searchbar')
+            input.value = ''
+            location.reload();
+        })
+
+        function searchForProject() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('project-folder-item');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].getElementsByClassName('project-folder-item--name')[0].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    x[i].style.display = "block";
+                }
+            }
+        }
+
+        function searchForItemInProject() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('folder-or-file');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].getElementsByClassName('folder-or-file--name')[0].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    x[i].style.display = "block";
+                }
+
+            }
+        }
+    </script>
+{% endblock %}
