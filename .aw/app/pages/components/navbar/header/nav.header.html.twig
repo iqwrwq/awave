@@ -1,21 +1,23 @@
 {% block navbarHeader %}
     <div id="resizable" class="navigation-bar">
     <div class="navigation-bar--header">
-        <div class="root-directory-snippet">
-            <div class="root-directory-snippet--text">~</div>
-            <i class="fas fa-chevron-right"></i>
-        </div>
-        {% for snippet in navigation_root_snippet %}
+        <div class="root-directory-path">
             <div class="root-directory-snippet">
-                <div class="root-directory-snippet--text">{{ snippet }}</div>
+                <div class="root-directory-snippet--text">~</div>
                 <i class="fas fa-chevron-right"></i>
             </div>
-        {% endfor %}
-        {% if name %}
-            <div class="root-directory-snippet">
-                <div class="root-directory-snippet--text highlight">{{ name }}</div>
-            </div>
-        {% endif %}
+            {% for snippet in navigation_root_snippet %}
+                <div class="root-directory-snippet">
+                    <div class="root-directory-snippet--text">{{ snippet }}</div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            {% endfor %}
+            {% if name %}
+                <div class="root-directory-snippet">
+                    <div class="root-directory-snippet--text highlight">{{ name }}</div>
+                </div>
+            {% endif %}
+        </div>
     </div>
     {% if name %}
         <div class="labels">
