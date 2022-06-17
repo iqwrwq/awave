@@ -41,8 +41,8 @@ class DirectoryReader
     private function createAndAnalyseProjectFrom(string $pathToProject): array
     {
         return array(
-            "name" => $pathToProject,
-            "entry" => $this->resolveEntry($pathToProject)
+            "name" => $pathToProject
+//            "entry" => $this->resolveEntry($pathToProject)
         );
     }
 
