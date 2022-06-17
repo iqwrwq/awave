@@ -1,7 +1,17 @@
 {% block navbarContent %}
     <div class="navigation-bar--content">
         {% if name %}
-            <a href="javascript:history.back()" class="btn btn-dark get-back-btn"><i class="fas fa-backspace"></i> Go Back</a>
+            <div class="content-header">
+                <a href="javascript:history.back()" class="btn btn-dark get-back-btn"><i class="fas fa-backspace"></i>
+                    Go Back</a>
+                <div class="content-header--filters">
+                    <div class="filter">
+                        <input id="vendor_include_checkbox" type="checkbox">
+                        <label for="vendor_include_checkbox">include vendor</label>
+                    </div>
+                </div>
+            </div>
+
             {% include 'components/navbar/content/nav.content.tree.html.twig' %}
         {% else %}
             {% include 'components/navbar/content/nav.content.project.html.twig' %}
