@@ -113,7 +113,7 @@ class DirectoryReader
         foreach (new RecursiveIteratorIterator($iterator) as $filename => $cur) {
             $sections = explode(DIRECTORY_SEPARATOR, $cur);
 
-            if (in_array('vendor', $sections)) {
+            if (in_array('vendor', $sections) || in_array('node_modules', $sections)) {
                 continue;
             } elseif (!in_array('.git', $sections)) {
                 $files[] = $filename;

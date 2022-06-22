@@ -74,6 +74,13 @@
     padding: 5px 10px;
 }
 
+.content-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .navigation-bar--content {
     overflow: scroll;
     -ms-overflow-style: none;

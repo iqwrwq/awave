@@ -1,6 +1,7 @@
 @import url("components/searchbar.css");
 @import url("components/navigation.css");
 @import url("components/tree.css");
+@import url("components/checkbox.css");
 
 body{
     background: #457B9D;
