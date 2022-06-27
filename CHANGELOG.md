@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Added taggs per project in the nav-header [@iqwrwq](https://github.com/iqwrwq/awave/pull/5)
 - Changed up README [@iqwrwq](https://github.com/iqwrwq/awave/pull/10)
 - Refactored multiple things in the app [@iqwrwq](https://github.com/iqwrwq/awave/pull/11)
+- Added Changelog [@iqwrwq](https://github.com/iqwrwq/awave/pull/18)
 
 ### Changed
 
